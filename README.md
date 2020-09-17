@@ -1,6 +1,8 @@
 # react-news
 DEMO => https://react-news-cdea5.web.app
 
+React, немного redux, firebase (бэк), material ui, axios
+
 ## Тестовое задание
 
 У пользователя должна быть возможность добавить новость. У админа должна быть
