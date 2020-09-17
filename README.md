@@ -1,6 +1,8 @@
 # react-news
 DEMO => https://react-news-cdea5.web.app
 
+React, немного redux, firebase (бэк), material ui, axios
+
 ## Тестовое задание
 
 У пользователя должна быть возможность добавить новость. У админа должна быть
@@ -10,5 +12,7 @@ DEMO => https://react-news-cdea5.web.app
 или одобрять новости.
 
 Данные для входа:
+
 Админ: admin@gmail.com (это логин и пароль)
+
 Авторизированный пользователь: test@gmail.com (это логин и пароль)
