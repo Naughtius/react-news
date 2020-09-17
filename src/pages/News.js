@@ -85,7 +85,7 @@ const News = () => {
    };
 
    const visibleItems = search(news, term);
-   console.log(news);
+
    return (
       <div className="page">
          <h1>Новости</h1>
