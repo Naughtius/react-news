@@ -6,6 +6,7 @@ import { createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./store/reducers/rootReducer";
 import thunk from "redux-thunk";
+import { SnackbarProvider } from "notistack";
 
 const composeEnhancers =
    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -19,7 +20,9 @@ const store = createStore(
 
 const app = (
    <Provider store={store}>
-      <App />
+      <SnackbarProvider>
+         <App />
+      </SnackbarProvider>
    </Provider>
 );
 

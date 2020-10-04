@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import SignInPopup from "./SignInPopup";
+import SignUpPopup from "./SignUpPopup";
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -22,12 +20,17 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ isAuth }) => {
    const classes = useStyles();
-   const [open, setOpenPopup] = useState(false);
+   const [openPopupSignIn, setOpenPopupSignIn] = useState(false);
+   const [openPopupSignUp, setOpenPopupSignUp] = useState(false);
 
-   const handleClickPopup = () => {
+   const handleClickPopupSignIn = () => {
       if (!isAuth) {
-         setOpenPopup(!open);
+         setOpenPopupSignIn(!openPopupSignIn);
       }
+   };
+
+   const handleClickPopupSignUp = () => {
+      setOpenPopupSignUp(!openPopupSignUp);
    };
 
    return (
@@ -49,12 +52,24 @@ const Header = ({ isAuth }) => {
                      <Button color="inherit">Выйти</Button>
                   </NavLink>
                ) : (
-                  <Button color="inherit" onClick={handleClickPopup}>
-                     Войти
-                  </Button>
+                  <>
+                     <Button color="inherit" onClick={handleClickPopupSignIn}>
+                        Вход
+                     </Button>
+                     <Button color="inherit" onClick={handleClickPopupSignUp}>
+                        Регистрация
+                     </Button>
+                  </>
                )}
 
-               <SignInPopup handleClickPopup={handleClickPopup} open={open} />
+               <SignInPopup
+                  handleClickPopup={handleClickPopupSignIn}
+                  open={openPopupSignIn}
+               />
+               <SignUpPopup
+                  handleClickPopup={handleClickPopupSignUp}
+                  open={openPopupSignUp}
+               />
             </Toolbar>
          </AppBar>
       </div>

@@ -7,18 +7,18 @@ import FormPopup from "./FormPopup";
 const SignInPopup = (props) => {
    const { enqueueSnackbar } = useSnackbar();
    const dispatch = useDispatch();
-   const token = useSelector((state) => state.auth.token);
-   const formControls = useSelector((state) => state.auth.formControls);
+   const regToken = useSelector((state) => state.auth.regToken);
+	const formControls = useSelector((state) => state.auth.formControls);
 
    useEffect(() => {
-      if (!!token) {
-         enqueueSnackbar("Вы авторизовались!");
+      if (!!regToken) {
+         enqueueSnackbar("Вы зарегестрировались!");
       }
-   }, [token, enqueueSnackbar]);
+	}, [regToken, enqueueSnackbar]);
 
-   const loginHandler = () => {
+   const registerHandler = () => {
       dispatch(
-         auth(formControls.email.value, formControls.password.value, true)
+         auth(formControls.email.value, formControls.password.value, false)
       );
       props.handleClickPopup();
    };
@@ -26,9 +26,9 @@ const SignInPopup = (props) => {
    return (
       <FormPopup
          open={props.open}
-         title="Войти"
+         title="Регистрация"
          handleClickPopup={props.handleClickPopup}
-         clickHandler={loginHandler}
+         clickHandler={registerHandler}
       />
    );
 };

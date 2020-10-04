@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import { Card, CardContent, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { connect } from "react-redux";
@@ -62,11 +60,13 @@ const NewsItem = (props) => {
             <Typography className={classes.pos} color="textSecondary">
                Дата создания: {props.date}
             </Typography>
+
             {props.isAdmin && props.isAuth ? (
                <div className={classes.removeIcon} onClick={props.removeItem}>
                   <CloseIcon />
                </div>
             ) : null}
+
             {props.isAdmin ? (
                <div
                   className={classesSuccess.join(" ")}
