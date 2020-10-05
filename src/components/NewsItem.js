@@ -14,6 +14,9 @@ const useStyles = makeStyles({
    title: {
       fontSize: 20,
    },
+   text: {
+      marginRight: "25px",
+   },
    removeIcon: {
       position: "absolute",
       top: "16px",
@@ -56,7 +59,7 @@ const NewsItem = (props) => {
             >
                {props.title}
             </Typography>
-            <Typography variant="body2" component="p">
+            <Typography variant="body2" component="p" className={classes.text}>
                {props.text}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">

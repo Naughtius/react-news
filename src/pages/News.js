@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import NewsList from "../components/NewsList";
+import { Spring } from "react-spring/renderprops";
 
 const News = () => {
    const [news, setNews] = useState([]);
@@ -89,16 +90,23 @@ const News = () => {
    return (
       <div className="page">
          <h1>Новости</h1>
+
          {loading ? (
             <Loader />
          ) : (
-            <NewsList
-               removeItem={removeItem}
-               newsList={visibleItems}
-               onSearchChange={onSearchChange}
-               addItem={addItem}
-               successNewsItem={successNewsItem}
-            />
+            <Spring from={{ opacity: 0 }} to={{ opacity: 1 }}>
+               {(props) => (
+                  <div style={props}>
+                     <NewsList
+                        removeItem={removeItem}
+                        newsList={visibleItems}
+                        onSearchChange={onSearchChange}
+                        addItem={addItem}
+                        successNewsItem={successNewsItem}
+                     />
+                  </div>
+               )}
+            </Spring>
          )}
       </div>
    );
