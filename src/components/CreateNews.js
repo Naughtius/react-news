@@ -14,7 +14,9 @@ const CreateNews = (props) => {
    };
 
    const submitHandler = () => {
-      props.addItem(form.title, form.text, form.date);
+      if (form.title.trim() !== "" && form.text.trim() !== "") {
+         props.addItem(form.title, form.text, form.date);
+      }
    };
 
    return (
