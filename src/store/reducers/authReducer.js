@@ -52,6 +52,17 @@ export default function authReducer(state = initialState, action) {
             token: action.token,
             isAdmin: action.isAdmin,
             error: null,
+            formControls: {
+               ...state.formControls,
+               email: {
+                  ...state.formControls.email,
+                  value: "",
+               },
+               password: {
+                  ...state.formControls.password,
+                  value: "",
+               },
+            },
          };
       case AUTH_LOGOUT:
          return {
@@ -65,6 +76,17 @@ export default function authReducer(state = initialState, action) {
             ...state,
             regToken: action.regToken,
             error: null,
+            formControls: {
+               ...state.formControls,
+               email: {
+                  ...state.formControls.email,
+                  value: "",
+               },
+               password: {
+                  ...state.formControls.password,
+                  value: "",
+               },
+            },
          };
       case CHANGE_INPUT:
          return {
@@ -80,7 +102,7 @@ export default function authReducer(state = initialState, action) {
                      state.formControls[action.fieldType].validation
                   ),
                },
-            }
+            },
          };
       default:
          return state;

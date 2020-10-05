@@ -1,16 +1,28 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Switch, Redirect, Route } from "react-router-dom";
 import Main from "../pages/Main";
 import News from "../pages/News";
 import Layout from "../hoc/Layout";
 import Logout from "./Logout";
 import { autoLogin } from "../store/actions/auth";
+import { useSnackbar } from "notistack";
 
-const App = (props) => {
+const App = () => {
+   const { enqueueSnackbar } = useSnackbar();
+   const dispatch = useDispatch();
+   const isAuth = useSelector((state) => state.auth.token);
+   const error = useSelector((state) => state.auth.error);
+
    useEffect(() => {
-      props.autoLogin();
+      dispatch(autoLogin());
    });
+
+   useEffect(() => {
+      if (error) {
+         enqueueSnackbar(error);
+      }
+	}, [error, enqueueSnackbar]);
 
    let routes = (
       <Switch>
@@ -24,7 +36,7 @@ const App = (props) => {
       </Switch>
    );
 
-   if (props.isAuth) {
+   if (isAuth) {
       routes = (
          <Switch>
             <Route path="/logout">
@@ -49,16 +61,4 @@ const App = (props) => {
    );
 };
 
-function mapStateToProps(state) {
-   return {
-      isAuth: !!state.auth.token,
-   };
-}
-
-function mapDispatchToProps(dispatch) {
-   return {
-      autoLogin: () => dispatch(autoLogin()),
-   };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

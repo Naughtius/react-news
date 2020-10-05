@@ -1,7 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Main = ({ isAuth }) => {
+const Main = () => {
+   const isAuth = useSelector((state) => state.auth.token);
    const email = isAuth ? localStorage.getItem("email") : "Гость";
 
    return (
@@ -12,10 +13,4 @@ const Main = ({ isAuth }) => {
    );
 };
 
-function mapStateToProps(state) {
-   return {
-      isAuth: !!state.auth.token,
-   };
-}
-
-export default connect(mapStateToProps)(Main);
+export default Main;

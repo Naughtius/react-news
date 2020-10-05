@@ -1,20 +1,25 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { logout } from "../store/actions/auth";
+import { useSnackbar } from "notistack";
 
-const Logout = (props) => {
+const Logout = () => {
+   const dispatch = useDispatch();
+   const { enqueueSnackbar } = useSnackbar();
+   const isAuth = useSelector((state) => state.auth.token);
+
    useEffect(() => {
-      props.logout();
+      dispatch(logout());
    });
+
+   useEffect(() => {
+      if (!!isAuth) {
+         enqueueSnackbar("Вы вышли из аккаунта!");
+      }
+   }, [isAuth, enqueueSnackbar]);
 
    return <Redirect to="/" />;
 };
 
-function mapDispatchToProps(dispatch) {
-   return {
-      logout: () => dispatch(logout()),
-   };
-}
-
-export default connect(null, mapDispatchToProps)(Logout);
+export default Logout;

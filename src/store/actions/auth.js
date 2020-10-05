@@ -108,10 +108,10 @@ export function autoLogin() {
    };
 }
 
-export function authError(e) {
+export function authError(error) {
    return {
       type: AUTH_ERROR,
-      error: e,
+      error
    };
 }
 

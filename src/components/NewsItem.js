@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
    root: {
@@ -38,6 +38,8 @@ const useStyles = makeStyles({
 
 const NewsItem = (props) => {
    const classes = useStyles();
+   const isAuth = useSelector((state) => state.auth.token);
+   const isAdmin = useSelector((state) => state.auth.isAdmin);
 
    const classesSuccess = [classes.successIcon];
    if (props.show) {
@@ -61,13 +63,13 @@ const NewsItem = (props) => {
                Дата создания: {props.date}
             </Typography>
 
-            {props.isAdmin && props.isAuth ? (
+            {isAdmin && isAuth ? (
                <div className={classes.removeIcon} onClick={props.removeItem}>
                   <CloseIcon />
                </div>
             ) : null}
 
-            {props.isAdmin ? (
+            {isAdmin ? (
                <div
                   className={classesSuccess.join(" ")}
                   onClick={props.successNewsItem}
@@ -80,11 +82,4 @@ const NewsItem = (props) => {
    );
 };
 
-function mapStateToProps(state) {
-   return {
-      isAuth: !!state.auth.token,
-      isAdmin: state.auth.isAdmin,
-   };
-}
-
-export default connect(mapStateToProps)(NewsItem);
+export default NewsItem;

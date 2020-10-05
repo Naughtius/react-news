@@ -1,13 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import CreateNews from "./CreateNews";
 import NewsItem from "./NewsItem";
 import SearchPanel from "./SearchPanel";
 
 const NewsList = (props) => {
+   const isAuth = useSelector((state) => state.auth.token);
+   const isAdmin = useSelector((state) => state.auth.isAdmin);
+
    const renderItems = (arr) => {
       return arr.map((item) => {
-         if (item.show || props.isAdmin || props.isAuth) {
+         if (item.show || isAdmin || isAuth) {
             return (
                <NewsItem
                   key={item.id}
@@ -27,20 +30,14 @@ const NewsList = (props) => {
       });
    };
 
+   const content = renderItems(props.newsList);
    return (
       <>
          <SearchPanel onSearchChange={props.onSearchChange} />
-         {renderItems(props.newsList)}
-         {props.isAuth ? <CreateNews addItem={props.addItem} /> : null}
+         {content}
+         {isAuth ? <CreateNews addItem={props.addItem} /> : null}
       </>
    );
 };
 
-function mapStateToProps(state) {
-   return {
-      isAdmin: state.auth.isAdmin,
-      isAuth: !!state.auth.token,
-   };
-}
-
-export default connect(mapStateToProps)(NewsList);
+export default NewsList;

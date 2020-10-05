@@ -1,8 +1,6 @@
 import { makeStyles } from "@material-ui/core";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import Header from "../components/Header";
-import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
    main: {
@@ -12,19 +10,10 @@ const useStyles = makeStyles(() => ({
 
 const Layout = (props) => {
    const classes = useStyles();
-   const { enqueueSnackbar } = useSnackbar();
-   const error = useSelector((state) => state.auth.error);
-   const isAuth = useSelector((state) => state.auth.token);
-
-   useEffect(() => {
-      if (error) {
-         enqueueSnackbar(error);
-      }
-   }, [error, enqueueSnackbar]);
 
    return (
       <>
-         <Header isAuth={!!isAuth} />
+         <Header />
          <main className={classes.main}>{props.children}</main>
       </>
    );
